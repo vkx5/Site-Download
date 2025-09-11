@@ -9,7 +9,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #000; /* Fundo preto */
+      background: #000;
       font-family: 'Poppins', sans-serif;
       color: #f5f5f5;
       display: flex;
@@ -108,6 +108,28 @@
       color: #aaa;
       width: 100%;
     }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+      gap: 15px;
+    }
+
+    .pagination button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      background: #8F29E6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .pagination button:hover {
+      background: #6b1bb0;
+    }
   </style>
 </head>
 <body>
@@ -118,24 +140,11 @@
     <p>Selecione seu produto e clique para baixar</p>
   </header>
 
-  <div class="container">
-    <div class="card">
-      <h2>Produto 1</h2>
-      <p>Descrição breve do produto 1.</p>
-      <a href="https://seu-link-aqui.com/produto1" class="download-btn">Baixar</a>
-    </div>
+  <div class="container" id="product-container"></div>
 
-    <div class="card">
-      <h2>Produto 2</h2>
-      <p>Descrição breve do produto 2.</p>
-      <a href="https://seu-link-aqui.com/produto2" class="download-btn">Baixar</a>
-    </div>
-
-    <div class="card">
-      <h2>Produto 3</h2>
-      <p>Descrição breve do produto 3.</p>
-      <a href="https://seu-link-aqui.com/produto3" class="download-btn">Baixar</a>
-    </div>
+  <div class="pagination">
+    <button onclick="prevPage()">⬅ Anterior</button>
+    <button onclick="nextPage()">Próxima ➡</button>
   </div>
 
   <footer>
@@ -154,6 +163,75 @@
         "color": { "value": "#8F29E6" }
       }
     });
+
+    // ------------------------------
+    // LISTA DE PRODUTOS (troque aqui)
+    // ------------------------------
+    const produtos = [
+      { nome: "Produto 1", descricao: "Descrição do produto 1", link: "https://seu-link.com/1" },
+      { nome: "Produto 2", descricao: "Descrição do produto 2", link: "https://seu-link.com/2" },
+      { nome: "Produto 3", descricao: "Descrição do produto 3", link: "https://seu-link.com/3" },
+      { nome: "Produto 4", descricao: "Descrição do produto 4", link: "https://seu-link.com/4" },
+      { nome: "Produto 5", descricao: "Descrição do produto 5", link: "https://seu-link.com/5" },
+      { nome: "Produto 6", descricao: "Descrição do produto 6", link: "https://seu-link.com/6" },
+      { nome: "Produto 7", descricao: "Descrição do produto 7", link: "https://seu-link.com/7" },
+      { nome: "Produto 8", descricao: "Descrição do produto 8", link: "https://seu-link.com/8" },
+      { nome: "Produto 9", descricao: "Descrição do produto 9", link: "https://seu-link.com/9" },
+      { nome: "Produto 10", descricao: "Descrição do produto 10", link: "https://seu-link.com/10" },
+      { nome: "Produto 11", descricao: "Descrição do produto 11", link: "https://seu-link.com/11" },
+      { nome: "Produto 12", descricao: "Descrição do produto 12", link: "https://seu-link.com/12" },
+      { nome: "Produto 13", descricao: "Descrição do produto 13", link: "https://seu-link.com/13" },
+      { nome: "Produto 14", descricao: "Descrição do produto 14", link: "https://seu-link.com/14" },
+      { nome: "Produto 15", descricao: "Descrição do produto 15", link: "https://seu-link.com/15" },
+      { nome: "Produto 16", descricao: "Descrição do produto 16", link: "https://seu-link.com/16" },
+      { nome: "Produto 17", descricao: "Descrição do produto 17", link: "https://seu-link.com/17" },
+      { nome: "Produto 18", descricao: "Descrição do produto 18", link: "https://seu-link.com/18" },
+      { nome: "Produto 19", descricao: "Descrição do produto 19", link: "https://seu-link.com/19" },
+      { nome: "Produto 20", descricao: "Descrição do produto 20", link: "https://seu-link.com/20" }
+    ];
+
+    // ------------------------------
+    // PAGINAÇÃO
+    // ------------------------------
+    let currentPage = 1;
+    const itemsPerPage = 5;
+    const totalPages = Math.ceil(produtos.length / itemsPerPage);
+
+    function renderPage() {
+      const container = document.getElementById("product-container");
+      container.innerHTML = "";
+
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageItems = produtos.slice(start, end);
+
+      pageItems.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h2>${p.nome}</h2>
+          <p>${p.descricao}</p>
+          <a href="${p.link}" class="download-btn">Baixar</a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function nextPage() {
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderPage();
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderPage();
+      }
+    }
+
+    renderPage(); // renderiza a primeira página
   </script>
 </body>
 </html>
