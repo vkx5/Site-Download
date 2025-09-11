@@ -152,80 +152,79 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
   <script>
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 50 },
-        "opacity": { "value": 0.3 },
-        "size": { "value": 2 },
-        "move": { "speed": 1.5 },
-        "line_linked": { "enable": true, "distance": 150, "color": "#8F29E6", "opacity": 0.3 },
-        "color": { "value": "#8F29E6" }
-      }
-    });
-
-    // ------------------------------
-    // LISTA DE PRODUTOS (troque aqui)
-    // ------------------------------
-    const produtos = [
-      { nome: "FreeFire Premium", descricao: "Painel Emulador Premium", link: "https://www.mediafire.com/file/o8bmoibuptpnf34/FreeFire_Premium.rar/file" },
-      { nome: "FreeFire Extreme", descricao: "Painel Emulador Extreme", link: "https://www.mediafire.com/file/5bftmfsjvql70le/FreeFire_Extreme.rar/file" },
-      { nome: "FreeFire Comum", descricao: "Painel Emulador Comum", link: "https://www.mediafire.com/file/92vn6zzt7ke6g1j/FreeFire_Comum.rar/file" },
-      { nome: "FreeFire Legit", descricao: "Painel Emulador Legit", link: "https://www.mediafire.com/file/rnzk057ul2n3cjh/FreeFire_Legit.rar/file" },
-      { nome: "FreeFire Internal V1", descricao: "Painel Emulador Internal", link: "https://www.mediafire.com/file/h72ukmjcv2d17qm/FreeFire+Internal+V1.rar/file" },
-      { nome: "FreeFire Supreme", descricao: "Painel Emulador Supreme", link: "https://www.mediafire.com/file/3jhtchvdezw0kea/FreeFire+Supreme.rar/file" },
-      { nome: "FreeFire Bypass Mobile", descricao: "Painel Emulador Bypass Mobile", link: "https://www.mediafire.com/file/ao97dkorjfgnyta/BypassMobile.rar/file" },
-      { nome: "Valorant External", descricao: "Painel Valorant External", link: "https://www.mediafire.com/file/hm0gvf3ail2ozom/Playboy-Valorant-Esp.rar/file" },
-      { nome: "Valorant AimColor", descricao: "Painel Valorant AimColor", link: "https://www.mediafire.com/file/hxgsew0zd8u18tw/Playboy-AimColor.rar/file" },
-      { nome: "Spoofer All", descricao: "Spoofer All", link: "https://www.mediafire.com/file/0k87312pz7pdgkb/Playboy-SpooferAll.rar/file" },
-      { nome: "Otimização", descricao: "Painel Otimização", link: "https://www.mediafire.com/file/sm7jhuavvfpimqc/Optimizer.rar/file" }
-    ];
-
-    // ------------------------------
-    // PAGINAÇÃO
-    // ------------------------------
-    let currentPage = 1;
-    const itemsPerPage = 5;
-    const totalPages = Math.ceil(produtos.length / itemsPerPage);
-
-    function renderPage() {
-      const container = document.getElementById("product-container");
-      container.innerHTML = "";
-
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const pageItems = produtos.slice(start, end);
-
-      pageItems.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <h2>${p.nome}</h2>
-          <p>${p.descricao}</p>
-          <a href="${p.link}" class="download-btn">Baixar</a>
-        `;
-        container.appendChild(card);
+    document.addEventListener("DOMContentLoaded", function () {
+      particlesJS("particles-js", {
+        "particles": {
+          "number": { "value": 50 },
+          "opacity": { "value": 0.3 },
+          "size": { "value": 2 },
+          "move": { "speed": 1.5 },
+          "line_linked": { "enable": true, "distance": 150, "color": "#8F29E6", "opacity": 0.3 },
+          "color": { "value": "#8F29E6" }
+        }
       });
-    }
 
-    function nextPage() {
-      if (currentPage < totalPages) {
-        currentPage++;
-        renderPage();
+      const produtos = [
+        { nome: "FreeFire Premium", descricao: "Painel Emulador Premium", link: "https://www.mediafire.com/file/o8bmoibuptpnf34/FreeFire_Premium.rar/file" },
+        { nome: "FreeFire Extreme", descricao: "Painel Emulador Extreme", link: "https://www.mediafire.com/file/5bftmfsjvql70le/FreeFire_Extreme.rar/file" },
+        { nome: "FreeFire Comum", descricao: "Painel Emulador Comum", link: "https://www.mediafire.com/file/92vn6zzt7ke6g1j/FreeFire_Comum.rar/file" },
+        { nome: "FreeFire Legit", descricao: "Painel Emulador Legit", link: "https://www.mediafire.com/file/rnzk057ul2n3cjh/FreeFire_Legit.rar/file" },
+        { nome: "FreeFire Internal V1", descricao: "Painel Emulador Internal", link: "https://www.mediafire.com/file/h72ukmjcv2d17qm/FreeFire+Internal+V1.rar/file" },
+        { nome: "FreeFire Supreme", descricao: "Painel Emulador Supreme", link: "https://www.mediafire.com/file/3jhtchvdezw0kea/FreeFire+Supreme.rar/file" },
+        { nome: "FreeFire Bypass Mobile", descricao: "Painel Emulador Bypass Mobile", link: "https://www.mediafire.com/file/ao97dkorjfgnyta/BypassMobile.rar/file" },
+        { nome: "Valorant External", descricao: "Painel Valorant External", link: "https://www.mediafire.com/file/hm0gvf3ail2ozom/Playboy-Valorant-Esp.rar/file" },
+        { nome: "Valorant AimColor", descricao: "Painel Valorant AimColor", link: "https://www.mediafire.com/file/hxgsew0zd8u18tw/Playboy-AimColor.rar/file" },
+        { nome: "Spoofer All", descricao: "Spoofer All", link: "https://www.mediafire.com/file/0k87312pz7pdgkb/Playboy-SpooferAll.rar/file" },
+        { nome: "Otimização", descricao: "Painel Otimização", link: "https://www.mediafire.com/file/sm7jhuavvfpimqc/Optimizer.rar/file" }
+      ];
+
+      let currentPage = 1;
+      const itemsPerPage = 6;
+      const totalPages = Math.ceil(produtos.length / itemsPerPage);
+
+      function renderPage() {
+        const container = document.getElementById("product-container");
+        container.innerHTML = "";
+
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageItems = produtos.slice(start, end);
+
+        pageItems.forEach(p => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <h2>${p.nome}</h2>
+            <p>${p.descricao}</p>
+            <a href="${p.link}" class="download-btn" target="_blank">Baixar</a>
+          `;
+          container.appendChild(card);
+        });
       }
-    }
 
-    function prevPage() {
-      if (currentPage > 1) {
-        currentPage--;
-        renderPage();
+      function nextPage() {
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderPage();
+        }
       }
-    }
 
-    renderPage(); // renderiza a primeira página
+      function prevPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          renderPage();
+        }
+      }
+
+      // Expor funções para os botões do HTML
+      window.nextPage = nextPage;
+      window.prevPage = prevPage;
+
+      // Renderiza a primeira página
+      renderPage();
+    });
   </script>
 </body>
 </html>
-
-
-
