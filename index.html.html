@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área de Downloads - PlayBoy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000; /* Fundo preto */
+      font-family: 'Poppins', sans-serif;
+      color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    header {
+      background-color: rgba(0,0,0,0.85);
+      border-bottom: 2px solid #8F29E6;
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+      color: #8F29E6;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 0.95em;
+      color: #ddd;
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 90%;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(0,0,0,0.85);
+      padding: 20px;
+      border-radius: 12px;
+      border: 2px solid #8F29E6;
+      box-shadow: 0px 8px 24px rgba(0,0,0,0.7);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0px 0px 20px #8F29E6, 0px 0px 40px #8F29E6 inset;
+      transform: scale(1.03);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.4em;
+      color: #8F29E6;
+    }
+
+    .card p {
+      font-size: 0.95em;
+      margin-bottom: 15px;
+      color: #ccc;
+    }
+
+    .download-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #8F29E6;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .download-btn:hover {
+      background: #6b1bb0;
+    }
+
+    footer {
+      background: rgba(0,0,0,0.85);
+      border-top: 2px solid #8F29E6;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #aaa;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <header>
+    <h1>📂 Área de Downloads</h1>
+    <p>Selecione seu produto e clique para baixar</p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>Produto 1</h2>
+      <p>Descrição breve do produto 1.</p>
+      <a href="https://seu-link-aqui.com/produto1" class="download-btn">Baixar</a>
+    </div>
+
+    <div class="card">
+      <h2>Produto 2</h2>
+      <p>Descrição breve do produto 2.</p>
+      <a href="https://seu-link-aqui.com/produto2" class="download-btn">Baixar</a>
+    </div>
+
+    <div class="card">
+      <h2>Produto 3</h2>
+      <p>Descrição breve do produto 3.</p>
+      <a href="https://seu-link-aqui.com/produto3" class="download-btn">Baixar</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 PlayBoy - Todos os direitos reservados
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 50 },
+        "opacity": { "value": 0.3 },
+        "size": { "value": 2 },
+        "move": { "speed": 1.5 },
+        "line_linked": { "enable": true, "distance": 150, "color": "#8F29E6", "opacity": 0.3 },
+        "color": { "value": "#8F29E6" }
+      }
+    });
+  </script>
+</body>
+</html>
