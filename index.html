@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Área de Downloads - PlayBoy</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Central de Downloads - PlayBoy</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
+    :root {
+      --roxo: #8F29E6;
+      --roxo-escuro: #6b1bb0;
+      --preto: #000;
+      --cinza: #aaa;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; padding: 0; margin: 0; }
+
+    html,body { height: 100%; }
+
     body {
-      margin: 0;
-      padding: 0;
-      background: #000;
       font-family: 'Poppins', sans-serif;
-      color: #f5f5f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
+      background: var(--preto);
+      color: var(--white);
       overflow-x: hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
     #particles-js {
@@ -26,133 +35,6 @@
       z-index: -1;
     }
 
-    header {
-      background-color: rgba(0,0,0,0.85);
-      border-bottom: 2px solid #8F29E6;
-      width: 100%;
-      text-align: center;
-      padding: 20px;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.6);
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2em;
-      color: #8F29E6;
-    }
-
-    header p {
-      margin: 5px 0 0;
-      font-size: 0.95em;
-      color: #ddd;
-    }
-
-    .container {
-      max-width: 1000px;
-      width: 90%;
-      margin: 40px auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: rgba(0,0,0,0.85);
-      padding: 20px;
-      border-radius: 12px;
-      border: 2px solid #8F29E6;
-      box-shadow: 0px 8px 24px rgba(0,0,0,0.7);
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      box-shadow: 0px 0px 20px #8F29E6, 0px 0px 40px #8F29E6 inset;
-      transform: scale(1.03);
-    }
-
-    .card h2 {
-      margin-top: 0;
-      font-size: 1.4em;
-      color: #8F29E6;
-    }
-
-    .card p {
-      font-size: 0.95em;
-      margin-bottom: 15px;
-      color: #ccc;
-    }
-
-    .download-btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #8F29E6;
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .download-btn:hover {
-      background: #6b1bb0;
-    }
-
-    footer {
-      background: rgba(0,0,0,0.85);
-      border-top: 2px solid #8F29E6;
-      text-align: center;
-      padding: 15px;
-      margin-top: 30px;
-      font-size: 0.9em;
-      color: #aaa;
-      width: 100%;
-    }
-
-    .pagination {
-      display: flex;
-      justify-content: center;
-      margin: 20px;
-      gap: 15px;
-    }
-
-    .pagination button {
-      padding: 8px 15px;
-      border: none;
-      border-radius: 6px;
-      background: #8F29E6;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .pagination button:hover {
-      background: #6b1bb0;
-    }
-
-    /* ---- NOTIFY ---- */
-    .notify {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #8F29E6;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.6);
-      opacity: 0;
-      transform: translateX(120%);
-      transition: all 0.5s ease;
-      z-index: 9999;
-    }
-    .notify.show {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* ---- LOADING ---- */
     #loading {
       position: fixed;
       top: 0; left: 0;
@@ -162,141 +44,418 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      z-index: 10000;
+      z-index: 30000;
     }
-    .spinner {
-      border: 6px solid #222;
-      border-top: 6px solid #8F29E6;
+    .initial-spinner {
+      border: 6px solid #111;
+      border-top: 6px solid var(--roxo);
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      width: 64px;
+      height: 64px;
       animation: spin 1s linear infinite;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
+    #loading h2 { margin-top: 12px; color: var(--roxo); }
+    @keyframes spin { 0%{transform:rotate(0)}100%{transform:rotate(360deg)} }
+
+    #login-screen {
+      position: fixed;
+      inset: 0; 
+      background: linear-gradient(135deg, rgba(6,6,10,1) 0%, rgba(22,5,25,1) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20000;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      pointer-events: auto;
     }
-    #loading h2 {
+    #login-screen.hidden { opacity: 0; pointer-events: none; transform: translateY(-10px); }
+
+    #login-box {
+      width: 380px;
+      padding: 36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 16px;
+      border: 1px solid rgba(143,41,230,0.12);
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.6),
+        0 0 40px rgba(143,41,230,0.06) inset;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #login-box::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 10% 20%, rgba(143,41,230,0.06), transparent 10%),
+                  radial-gradient(circle at 90% 80%, rgba(143,41,230,0.04), transparent 10%);
+      pointer-events: none;
+    }
+    #login-title {
+      color: var(--roxo);
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 18px rgba(143,41,230,0.25);
+      letter-spacing: 1px;
+    }
+    #login-sub { color: #aaa; font-size: 0.9rem; margin-bottom: 18px; }
+
+    .login-input {
+      width: 100%;
+      padding: 12px 14px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid rgba(143,41,230,0.12);
+      background: linear-gradient(180deg, #0e0e0e, #0a0a0a);
+      color: var(--white);
+      outline: none;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6), inset 0 0 10px rgba(143,41,230,0.02);
+      transition: box-shadow .25s, transform .15s;
+      caret-color: transparent; 
+      user-select: none; 
+      font-size: 0.95rem;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+    }
+    .login-input[readonly] { cursor: default; opacity: 0.95; }
+
+    .login-input:focus {
+      box-shadow: 0 0 20px rgba(143,41,230,0.18);
+      transform: translateY(-2px);
+    }
+
+    #login-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(90deg,var(--roxo),var(--roxo-escuro));
+      color: white;
+      font-weight: 700;
+      letter-spacing: .6px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(143,41,230,0.2);
+      transition: transform .12s ease, box-shadow .2s ease;
+    }
+    #login-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(143,41,230,0.28); }
+    #login-btn:active { transform: scale(.99); }
+
+    #post-login {
+      margin-top: 14px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .post-spinner {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 6px solid rgba(20,20,20,0.9);
+      border-top: 6px solid var(--roxo);
+      animation: spin 1s linear infinite;
+      box-shadow: 0 6px 30px rgba(143,41,230,0.12);
+    }
+    #post-login p { color: var(--roxo); font-weight: 700; margin-top: 6px; }
+
+    #login-screen, #login-box { -webkit-touch-callout: none; -webkit-user-select: none; -ms-user-select: none; user-select: none; }
+
+    header {
+      padding: 30px 20px;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.85);
+      border-bottom: 2px solid var(--roxo);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+    header h1 { font-size: 2.5rem; color: var(--roxo); text-shadow: 0 0 12px var(--roxo); }
+    header p { color: #ccc; font-size: 1rem; margin-top: 8px; }
+
+    .discord-btn {
+      display: inline-block;
       margin-top: 15px;
-      color: #8F29E6;
+      padding: 10px 20px;
+      border: 2px solid var(--roxo);
+      color: var(--roxo);
+      border-radius: 8px;
       font-weight: bold;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .discord-btn:hover { background: transparent; color: var(--roxo); box-shadow: 0 0 15px var(--roxo); }
+    .discord-btn:active { transform: scale(0.95); }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 2px solid var(--roxo);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      transition: 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 12px var(--roxo), 0 0 20px var(--roxo) inset;
+    }
+    .card i { font-size: 2.2rem; color: var(--roxo); margin-bottom: 15px; }
+    .card h2 { font-size: 1.3rem; color: var(--roxo); margin-bottom: 10px; }
+    .card p { font-size: 0.95rem; color: #ccc; margin-bottom: 20px; }
+
+    .download-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: transparent;
+      color: var(--roxo);
+      font-weight: bold;
+      border: 2px solid var(--roxo);
+      border-radius: 10px;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .download-btn:hover { background: transparent; color: var(--roxo); box-shadow: 0 0 15px var(--roxo); }
+    .download-btn:active { transform: scale(0.95); }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+    }
+    .pagination button {
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 2px solid var(--roxo);
+      background: transparent;
+      color: var(--roxo);
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .pagination button:hover { background: transparent; color: var(--roxo); box-shadow: 0 0 12px var(--roxo); }
+    .pagination button:active { transform: scale(0.95); }
+
+    #notify {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.7);
+      color: var(--roxo);
+      border: 2px solid var(--roxo);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      opacity: 0;
+      transform: translateX(120%);
+      transition: all 0.5s ease;
+      z-index: 9999;
+    }
+    #notify.show { opacity: 1; transform: translateX(0); }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.85);
+      border-top: 2px solid var(--roxo);
+      font-size: 0.9rem;
+      color: var(--cinza);
+      margin-top: 40px;
+    }
+
+    /* small screens */
+    @media (max-width:420px) {
+      #login-box { width: 90%; padding: 20px; border-radius: 12px; }
     }
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
 
-  <!-- Tela de carregamento -->
   <div id="loading">
-    <div class="spinner"></div>
+    <div class="initial-spinner"></div>
     <h2>Carregando...</h2>
   </div>
 
-  <!-- Notify -->
-  <div id="notify" class="notify">Download iniciado!</div>
+  <div id="notify">Download iniciado!</div>
 
-  <header>
-    <h1>📂 Área de Downloads</h1>
-    <p>Selecione seu produto e clique para baixar</p>
+  <div id="login-screen" role="dialog" aria-modal="true">
+    <div id="login-box" aria-hidden="false">
+      <div id="login-title">Acessar Site</div>
+      <div id="login-sub">Digite suas credenciais</div>
+      <input type="text" id="username" class="login-input" placeholder="Usuário" readonly aria-readonly="true" tabindex="-1">
+      <input type="password" id="password" class="login-input" placeholder="Senha" readonly aria-readonly="true" tabindex="-1">
+      <button id="login-btn" aria-disabled="false">Entrar</button>
+
+      <div id="post-login">
+        <div class="post-spinner" aria-hidden="true"></div>
+        <p>Entrando...</p>
+      </div>
+    </div>
+  </div>
+
+  <header aria-hidden="true">
+    <h1>Central de Downloads</h1>
+    <p>Escolha abaixo o que deseja baixar</p>
+    <a href="https://discord.gg/playboycheats" target="_blank" class="discord-btn">Discord</a>
   </header>
 
   <div class="container" id="product-container"></div>
 
   <div class="pagination">
-    <button onclick="prevPage()">⬅ Anterior</button>
-    <button onclick="nextPage()">Próxima ➡</button>
+    <button id="prevBtn">⬅ Anterior</button>
+    <button id="nextBtn">Próxima ➡</button>
   </div>
 
-  <footer>
-    © 2025 PlayBoy - Todos os direitos reservados
+  <footer aria-hidden="true">
+    © 2025 PlayBoyCheats - Todos os direitos reservados
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // Efeito de partículas
-      particlesJS("particles-js", {
-        "particles": {
-          "number": { "value": 50 },
-          "opacity": { "value": 0.3 },
-          "size": { "value": 2 },
-          "move": { "speed": 1.5 },
-          "line_linked": { "enable": true, "distance": 150, "color": "#8F29E6", "opacity": 0.3 },
-          "color": { "value": "#8F29E6" }
-        }
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 80 },
+        "opacity": { "value": 0.8 },
+        "size": { "value": 2 },
+        "move": { "speed": 3 },
+        "line_linked": { "enable": true, "distance": 155, "color": "#8F29E6", "opacity": 0.5 },
+        "color": { "value": "#8F29E6" }
+      }
+    });
+
+    const produtos = [
+      { nome: "FreeFire Premium", descricao: "Painel Emulador Premium", link: "https://www.mediafire.com/file/o8bmoibuptpnf34/FreeFire_Premium.rar/file", icone: "fa-fire" },
+      { nome: "FreeFire Extreme", descricao: "Painel Emulador Extreme", link: "https://www.mediafire.com/file/5bftmfsjvql70le/FreeFire_Extreme.rar/file", icone: "fa-bolt" },
+      { nome: "FreeFire Comum", descricao: "Painel Emulador Comum", link: "https://www.mediafire.com/file/92vn6zzt7ke6g1j/FreeFire_Comum.rar/file", icone: "fa-cube" },
+      { nome: "FreeFire Legit", descricao: "Painel Emulador Legit", link: "https://www.mediafire.com/file/rnzk057ul2n3cjh/FreeFire_Legit.rar/file", icone: "fa-check" },
+      { nome: "FreeFire Internal V1", descricao: "Painel Emulador Internal", link: "https://www.mediafire.com/file/h72ukmjcv2d17qm/FreeFire+Internal+V1.rar/file", icone: "fa-shield" },
+      { nome: "FreeFire Supreme", descricao: "Painel Emulador Supreme", link: "https://www.mediafire.com/file/3jhtchvdezw0kea/FreeFire+Supreme.rar/file", icone: "fa-crown" },
+      { nome: "FreeFire Bypass Mobile", descricao: "Painel Emulador Bypass Mobile", link: "https://www.mediafire.com/file/ao97dkorjfgnyta/BypassMobile.rar/file", icone: "fa-mobile" },
+      { nome: "Valorant External", descricao: "Painel Valorant External", link: "https://www.mediafire.com/file/hm0gvf3ail2ozom/Playboy-Valorant-Esp.rar/file", icone: "fa-crosshairs" },
+      { nome: "Valorant AimColor", descricao: "Painel Valorant AimColor", link: "https://www.mediafire.com/file/hxgsew0zd8u18tw/Playboy-AimColor.rar/file", icone: "fa-eye" },
+      { nome: "Spoofer All", descricao: "Spoofer All", link: "https://www.mediafire.com/file/0k87312pz7pdgkb/Playboy-SpooferAll.rar/file", icone: "fa-random" },
+      { nome: "Otimização", descricao: "Painel Otimização", link: "https://www.mediafire.com/file/sm7jhuavvfpimqc/Optimizer.rar/file", icone: "fa-rocket" }
+    ];
+
+    // paginação
+    let currentPage = 1;
+    const itemsPerPage = 6;
+    const totalPages = Math.ceil(produtos.length / itemsPerPage);
+
+    function renderPage() {
+      const container = document.getElementById("product-container");
+      container.innerHTML = "";
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageItems = produtos.slice(start, end);
+      pageItems.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <i class="fas ${p.icone}"></i>
+          <h2>${p.nome}</h2>
+          <p>${p.descricao}</p>
+          <a href="${p.link}" class="download-btn" target="_blank" onclick="showNotify()">Baixar</a>
+        `;
+        container.appendChild(card);
       });
+    }
 
-      // Lista de produtos
-      const produtos = [
-        { nome: "FreeFire Premium", descricao: "Painel Emulador Premium", link: "https://www.mediafire.com/file/o8bmoibuptpnf34/FreeFire_Premium.rar/file" },
-        { nome: "FreeFire Extreme", descricao: "Painel Emulador Extreme", link: "https://www.mediafire.com/file/5bftmfsjvql70le/FreeFire_Extreme.rar/file" },
-        { nome: "FreeFire Comum", descricao: "Painel Emulador Comum", link: "https://www.mediafire.com/file/92vn6zzt7ke6g1j/FreeFire_Comum.rar/file" },
-        { nome: "FreeFire Legit", descricao: "Painel Emulador Legit", link: "https://www.mediafire.com/file/rnzk057ul2n3cjh/FreeFire_Legit.rar/file" },
-        { nome: "FreeFire Internal V1", descricao: "Painel Emulador Internal", link: "https://www.mediafire.com/file/h72ukmjcv2d17qm/FreeFire+Internal+V1.rar/file" },
-        { nome: "FreeFire Supreme", descricao: "Painel Emulador Supreme", link: "https://www.mediafire.com/file/3jhtchvdezw0kea/FreeFire+Supreme.rar/file" },
-        { nome: "FreeFire Bypass Mobile", descricao: "Painel Emulador Bypass Mobile", link: "https://www.mediafire.com/file/ao97dkorjfgnyta/BypassMobile.rar/file" },
-        { nome: "Valorant External", descricao: "Painel Valorant External", link: "https://www.mediafire.com/file/hm0gvf3ail2ozom/Playboy-Valorant-Esp.rar/file" },
-        { nome: "Valorant AimColor", descricao: "Painel Valorant AimColor", link: "https://www.mediafire.com/file/hxgsew0zd8u18tw/Playboy-AimColor.rar/file" },
-        { nome: "Spoofer All", descricao: "Spoofer All", link: "https://www.mediafire.com/file/0k87312pz7pdgkb/Playboy-SpooferAll.rar/file" },
-        { nome: "Otimização", descricao: "Painel Otimização", link: "https://www.mediafire.com/file/sm7jhuavvfpimqc/Optimizer.rar/file" }
-      ];
+    window.showNotify = function () {
+      const notify = document.getElementById("notify");
+      notify.classList.add("show");
+      setTimeout(() => notify.classList.remove("show"), 3000);
+    }
 
-      let currentPage = 1;
-      const itemsPerPage = 6;
-      const totalPages = Math.ceil(produtos.length / itemsPerPage);
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      if (currentPage < totalPages) { currentPage++; renderPage(); }
+    });
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (currentPage > 1) { currentPage--; renderPage(); }
+    });
 
-      function renderPage() {
-        const container = document.getElementById("product-container");
-        container.innerHTML = "";
+    window.onload = function () {
+      setTimeout(() => {
+        const load = document.getElementById("loading");
+        if (load) load.style.display = "none";
+        renderPage();
+      }, 700); 
+    };
 
-        const start = (currentPage - 1) * itemsPerPage;
-        const end = start + itemsPerPage;
-        const pageItems = produtos.slice(start, end);
+    const usernameEl = document.getElementById("username");
+    const passwordEl = document.getElementById("password");
+    const loginBtn = document.getElementById("login-btn");
+    const postLogin = document.getElementById("post-login");
+    const loginScreen = document.getElementById("login-screen");
 
-        pageItems.forEach(p => {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `
-            <h2>${p.nome}</h2>
-            <p>${p.descricao}</p>
-            <a href="${p.link}" class="download-btn" target="_blank" onclick="showNotify()">Baixar</a>
-          `;
-          container.appendChild(card);
+    usernameEl.setAttribute("readonly", "true");
+    passwordEl.setAttribute("readonly", "true");
+    usernameEl.setAttribute("tabindex", "-1");
+    passwordEl.setAttribute("tabindex", "-1");
+
+    function typeEffect(el, text, delay, callback) {
+      el.value = "";
+      let i = 0;
+      const timer = setInterval(() => {
+        el.value += text.charAt(i);
+        i++;
+        if (i >= text.length) {
+          clearInterval(timer);
+          if (callback) callback();
+        }
+      }, delay);
+    }
+
+    window.addEventListener("load", () => {
+      loginScreen.classList.remove("hidden");
+      document.querySelector('header').setAttribute('aria-hidden','true');
+      document.querySelector('footer').setAttribute('aria-hidden','true');
+
+      setTimeout(() => {
+        typeEffect(usernameEl, "playboycheats", 120, () => {
+          setTimeout(() => {
+            typeEffect(passwordEl, "123", 130, () => {
+              setTimeout(() => {
+                loginBtn.click();
+              }, 600);
+            });
+          }, 250);
         });
-      }
+      }, 800);
+    });
 
-      function nextPage() {
-        if (currentPage < totalPages) {
-          currentPage++;
-          renderPage();
+    loginBtn.addEventListener("click", () => {
+      loginBtn.disabled = true;
+      loginBtn.setAttribute('aria-disabled','true');
+      loginBtn.style.opacity = 0;
+      postLogin.style.display = "flex";
+
+      setTimeout(() => {
+        loginScreen.classList.add("hidden");
+        document.querySelector('header').removeAttribute('aria-hidden');
+        document.querySelector('footer').removeAttribute('aria-hidden');
+        document.body.style.overflow = '';
+      }, 2200);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!loginScreen.classList.contains('hidden')) {
+        if (e.key === 'Tab' || e.key === 'Escape' || e.key === 'Enter') {
+          e.preventDefault();
         }
       }
-
-      function prevPage() {
-        if (currentPage > 1) {
-          currentPage--;
-          renderPage();
-        }
-      }
-
-      // Notificação
-      window.showNotify = function() {
-        const notify = document.getElementById("notify");
-        notify.classList.add("show");
-        setTimeout(() => notify.classList.remove("show"), 3000);
-      }
-
-      // Expor funções para os botões
-      window.nextPage = nextPage;
-      window.prevPage = prevPage;
-
-      // Simula carregamento
-      window.onload = function() {
-        document.getElementById("loading").style.display = "none";
-      };
-
-      renderPage(); // Render inicial
     });
   </script>
 </body>
