@@ -369,67 +369,68 @@
     });
 
     // Categorias
-    const data = {
-      produtos: [
-      { nome: "FreeFire Premium", descricao: "Painel Emulador Premium", link: "https://www.mediafire.com/file/o8bmoibuptpnf34/FreeFire_Premium.rar/file", icone: "fa-fire" },
-      { nome: "FreeFire Extreme", descricao: "Painel Emulador Extreme", link: "https://www.mediafire.com/file/5bftmfsjvql70le/FreeFire_Extreme.rar/file", icone: "fa-bolt" },
-      { nome: "FreeFire Comum", descricao: "Painel Emulador Comum", link: "https://www.mediafire.com/file/92vn6zzt7ke6g1j/FreeFire_Comum.rar/file", icone: "fa-cube" },
-      { nome: "FreeFire Legit", descricao: "Painel Emulador Legit", link: "https://www.mediafire.com/file/rnzk057ul2n3cjh/FreeFire_Legit.rar/file", icone: "fa-check" },
-      { nome: "FreeFire Internal V1", descricao: "Painel Emulador Internal", link: "https://www.mediafire.com/file/h72ukmjcv2d17qm/FreeFire+Internal+V1.rar/file", icone: "fa-shield" },
-      { nome: "FreeFire Supreme", descricao: "Painel Emulador Supreme", link: "https://www.mediafire.com/file/3jhtchvdezw0kea/FreeFire+Supreme.rar/file", icone: "fa-crown" },
-      { nome: "FreeFire Bypass Mobile", descricao: "Painel Emulador Bypass Mobile", link: "https://www.mediafire.com/file/ao97dkorjfgnyta/BypassMobile.rar/file", icone: "fa-mobile" },
-      { nome: "Valorant External", descricao: "Painel Valorant External", link: "https://www.mediafire.com/file/hm0gvf3ail2ozom/Playboy-Valorant-Esp.rar/file", icone: "fa-crosshairs" },
-      { nome: "Valorant AimColor", descricao: "Painel Valorant AimColor", link: "https://www.mediafire.com/file/hxgsew0zd8u18tw/Playboy-AimColor.rar/file", icone: "fa-eye" },
-      { nome: "Spoofer All", descricao: "Spoofer All", link: "https://www.mediafire.com/file/0k87312pz7pdgkb/Playboy-SpooferAll.rar/file", icone: "fa-random" },
-      { nome: "Spoofer FiveM", descricao: "Spoofer FiveM", link: "https://www.mediafire.com/file/f468gtywex7r1jz/Playboy+Spoofer.rar/file", icone: "fa-random" },
-      { nome: "Otimização", descricao: "Painel Otimização", link: "https://www.mediafire.com/file/sm7jhuavvfpimqc/Optimizer.rar/file", icone: "fa-rocket" }
-      ],
-      drivers: [
-        { nome: "Microsoft DirectX", descricao: "Downloads mais recentes do Pacote Redistribuível do Microsoft DirectX com suporte", link: "https://www.mediafire.com/file/7f8u8438f9a4ni1/Microsoft+DirectX.rar/file", icone: "fa-microchip" },
-        { nome: "Microsoft Visual C++", descricao: "Downloads mais recentes do Pacote Redistribuível do Microsoft Visual C++ com suporte", link: "https://www.mediafire.com/file/bb2xtsto4zqwvjy/Microsoft+Visual+C++.rar/file", icone: "fa-hard-drive" }
-      ],
-      emuladores: [
-        { nome: "Emulador BlueStacks", descricao: "BlueStacks 5.22.51", link: "https://www.mediafire.com/file/ctsfv4bxteaixv2/BlueStacks+5.22.51.rar/file", icone: "fa-desktop" }
-      ],
-      freefires: [
-        { nome: "FreeFire V7A", descricao: "Usar no emulador Normal", link: "https://www.mediafire.com/file/2ntvkbcniv99z3u/Free+Fire+V7A.rar/file", icone: "fa-gamepad" },
-        { nome: "FreeFire MAX", descricao: "Usar no emulador Tela parada", link: "https://www.mediafire.com/file/4p40m6mkzoppuj0/FreeFire+MAX.rar/file", icone: "fa-gamepad" }
-      ],
-      configs: [
-        { nome: "Indisponível", descricao: "Sem descrição", link: "#", icone: "fa-gear" },
-      ]
-    };
+  const data = {
+    produtos: [
+      { nome: "FreeFire Premium", descricao: "Painel Emulador Premium", link: "https://www.mediafire.com/file/o8bmoibuptpnf34/FreeFire_Premium.rar/file", icone: "fa-fire", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "FreeFire Extreme", descricao: "Painel Emulador Extreme", link: "https://www.mediafire.com/file/5bftmfsjvql70le/FreeFire_Extreme.rar/file", icone: "fa-bolt", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "FreeFire Comum", descricao: "Painel Emulador Comum", link: "https://www.mediafire.com/file/92vn6zzt7ke6g1j/FreeFire_Comum.rar/file", icone: "fa-cube", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "FreeFire Legit", descricao: "Painel Emulador Legit", link: "https://www.mediafire.com/file/rnzk057ul2n3cjh/FreeFire_Legit.rar/file", icone: "fa-check", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "FreeFire Internal V1", descricao: "Painel Emulador Internal", link: "https://www.mediafire.com/file/h72ukmjcv2d17qm/FreeFire+Internal+V1.rar/file", icone: "fa-shield", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "FreeFire Supreme", descricao: "Painel Emulador Supreme", link: "https://www.mediafire.com/file/3jhtchvdezw0kea/FreeFire+Supreme.rar/file", icone: "fa-crown", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "FreeFire Bypass Mobile", descricao: "Painel Emulador Bypass Mobile", link: "https://www.mediafire.com/file/ao97dkorjfgnyta/BypassMobile.rar/file", icone: "fa-mobile", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "Valorant External", descricao: "Painel Valorant External", link: "https://www.mediafire.com/file/hm0gvf3ail2ozom/Playboy-Valorant-Esp.rar/file", icone: "fa-crosshairs", status: { mensagem: "Atualizando", cor: "orange" } },
+      { nome: "Valorant AimColor", descricao: "Painel Valorant AimColor", link: "https://www.mediafire.com/file/hxgsew0zd8u18tw/Playboy-AimColor.rar/file", icone: "fa-eye", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "Spoofer All", descricao: "Spoofer All", link: "https://www.mediafire.com/file/0k87312pz7pdgkb/Playboy-SpooferAll.rar/file", icone: "fa-random", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "Spoofer FiveM", descricao: "Spoofer FiveM", link: "https://www.mediafire.com/file/f468gtywex7r1jz/Playboy+Spoofer.rar/file", icone: "fa-random", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "Otimização", descricao: "Painel Otimização", link: "https://www.mediafire.com/file/sm7jhuavvfpimqc/Optimizer.rar/file", icone: "fa-rocket", status: { mensagem: "Seguro", cor: "green" } }
+    ],
+    drivers: [
+      { nome: "Microsoft DirectX", descricao: "Downloads mais recentes do Pacote Redistribuível do Microsoft DirectX com suporte", link: "https://www.mediafire.com/file/7f8u8438f9a4ni1/Microsoft+DirectX.rar/file", icone: "fa-microchip", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "Microsoft Visual C++", descricao: "Downloads mais recentes do Pacote Redistribuível do Microsoft Visual C++ com suporte", link: "https://www.mediafire.com/file/bb2xtsto4zqwvjy/Microsoft+Visual+C++.rar/file", icone: "fa-hard-drive", status: { mensagem: "Seguro", cor: "green" } }
+    ],
+    emuladores: [
+      { nome: "Emulador BlueStacks", descricao: "BlueStacks 5.22.51", link: "https://www.mediafire.com/file/ctsfv4bxteaixv2/BlueStacks+5.22.51.rar/file", icone: "fa-desktop", status: { mensagem: "Seguro", cor: "green" } }
+    ],
+    freefires: [
+      { nome: "FreeFire V7A", descricao: "Usar no emulador Normal", link: "https://www.mediafire.com/file/2ntvkbcniv99z3u/Free+Fire+V7A.rar/file", icone: "fa-gamepad", status: { mensagem: "Seguro", cor: "green" } },
+      { nome: "FreeFire MAX", descricao: "Usar no emulador Tela parada", link: "https://www.mediafire.com/file/4p40m6mkzoppuj0/FreeFire+MAX.rar/file", icone: "fa-gamepad", status: { mensagem: "Seguro", cor: "green" } }
+    ],
+    configs: [
+      { nome: "Indisponível", descricao: "Sem descrição", link: "#", icone: "fa-gear", status: { mensagem: "Seguro", cor: "green" } },
+    ]
+  };
 
     // Variáveis globais
     let currentTab = "produtos";
     let currentPage = 1;
     const itemsPerPage = 6;
 
-    function renderPage() {
-      const container = document.getElementById("product-container");
-      container.innerHTML = "";
-      const items = data[currentTab];
-      const totalPages = Math.ceil(items.length / itemsPerPage);
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const pageItems = items.slice(start, end);
+  function renderPage() {
+    const container = document.getElementById("product-container");
+    container.innerHTML = "";
+    const items = data[currentTab];
+    const totalPages = Math.ceil(items.length / itemsPerPage);
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = items.slice(start, end);
 
-      pageItems.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <i class="fas ${p.icone}"></i>
-          <h2>${p.nome}</h2>
-          <p>${p.descricao}</p>
-          <a href="${p.link}" class="download-btn" target="_blank" onclick="showNotify()">Baixar</a>
-        `;
-        container.appendChild(card);
-      });
+    pageItems.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <i class="fas ${p.icone}"></i>
+        <h2>${p.nome}</h2>
+        <p>${p.descricao}</p>
+        <p style="font-weight:bold; color:${p.status.cor};">${p.status.mensagem}</p>
+        <a href="${p.link}" class="download-btn" target="_blank" onclick="showNotify()">Baixar</a>
+      `;
+      container.appendChild(card);
+    });
 
-      // controla botões
-      document.getElementById("prevBtn").disabled = currentPage === 1;
-      document.getElementById("nextBtn").disabled = currentPage === totalPages;
-    }
+    // controla botões
+    document.getElementById("prevBtn").disabled = currentPage === 1;
+    document.getElementById("nextBtn").disabled = currentPage === totalPages;
+  }
 
     // notificacao
     window.showNotify = function () {
