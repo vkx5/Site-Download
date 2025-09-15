@@ -1,342 +1,280 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Central de Downloads - PlayBoy</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Central de Downloads</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-    :root {
-      --roxo: #8F29E6;
-      --roxo-escuro: #6b1bb0;
-      --preto: #000;
-      --cinza: #aaa;
-      --white: #fff;
-    }
+:root {
+  --primary: #7012d0;
+  --primary-dark: #261039;
+  --bg: #f9f9f9;
+  --text: #222;
+  --text-light: #555;
+  --card: #ffffff;
+  --border: #e6e6e6;
+}
 
-    * { box-sizing: border-box; padding: 0; margin: 0; }
+body.dark {
+  --bg: #020000;
+  --text: #eee;
+  --text-light: #bbb;
+  --card: #0d0b14;
+  --border: #1a0f24;
+}
 
-    html,body { height: 100%; }
+*{ box-sizing: border-box; margin:0; padding:0; }
+body{
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background .25s, color .25s;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--preto);
-      color: var(--white);
-      overflow-x: hidden;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
+header{
+  text-align: center;
+  padding: 1.8rem 1rem;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+header h1{ color:var(--primary); font-size:1.6rem; margin: 0; }
+header p{ color:var(--text-light); margin-top:.4rem; }
 
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.logo-title .logo {
+  height: 50px;
+}
 
-    #loading {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 30000;
-    }
-    .initial-spinner {
-      border: 6px solid #111;
-      border-top: 6px solid var(--roxo);
-      border-radius: 50%;
-      width: 64px;
-      height: 64px;
-      animation: spin 1s linear infinite;
-    }
-    #loading h2 { margin-top: 12px; color: var(--roxo); }
-    @keyframes spin { 0%{transform:rotate(0)}100%{transform:rotate(360deg)} }
+header a{
+  display:inline-block;
+  margin-top:.8rem;
+  padding:.5rem .9rem;
+  background:var(--primary);
+  color:#fff;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:600;
+  transition: all .3s ease;
+}
+header a:hover {
+  transform: scale(1.05);
+  background: var(--primary-dark);
+}
 
-    #login-screen {
-      position: fixed;
-      inset: 0; 
-      background: linear-gradient(135deg, rgba(6,6,10,1) 0%, rgba(22,5,25,1) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 20000;
-      transition: opacity 0.8s ease, transform 0.8s ease;
-      pointer-events: auto;
-    }
-    #login-screen.hidden { opacity: 0; pointer-events: none; transform: translateY(-10px); }
+#theme-toggle{
+  position:absolute;
+  right:16px;
+  top:16px;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  background:var(--bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:var(--text);
+  transition: background .2s, color .2s;
+}
+#theme-toggle:hover{ background:var(--primary); color:#fff; }
 
-    #login-box {
-      width: 380px;
-      padding: 36px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: 16px;
-      border: 1px solid rgba(143,41,230,0.12);
-      box-shadow:
-        0 10px 30px rgba(0,0,0,0.6),
-        0 0 40px rgba(143,41,230,0.06) inset;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    #login-box::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at 10% 20%, rgba(143,41,230,0.06), transparent 10%),
-                  radial-gradient(circle at 90% 80%, rgba(143,41,230,0.04), transparent 10%);
-      pointer-events: none;
-    }
-    #login-title {
-      color: var(--roxo);
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-      text-shadow: 0 0 18px rgba(143,41,230,0.25);
-      letter-spacing: 1px;
-    }
-    #login-sub { color: #aaa; font-size: 0.9rem; margin-bottom: 18px; }
+nav.tabs{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:18px 0;
+}
+nav.tabs button{
+  padding:.5rem .9rem;
+  border-radius:8px;
+  border:none;
+  background:var(--border);
+  color:var(--text);
+  font-weight:600;
+  cursor:pointer;
+  transition:all .25s ease;
+}
+nav.tabs button.active, nav.tabs button:hover{
+  background:var(--primary);
+  color:#fff;
+}
 
-    .login-input {
-      width: 100%;
-      padding: 12px 14px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: 1px solid rgba(143,41,230,0.12);
-      background: linear-gradient(180deg, #0e0e0e, #0a0a0a);
-      color: var(--white);
-      outline: none;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.6), inset 0 0 10px rgba(143,41,230,0.02);
-      transition: box-shadow .25s, transform .15s;
-      caret-color: transparent; 
-      user-select: none; 
-      font-size: 0.95rem;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-    }
-    .login-input[readonly] { cursor: default; opacity: 0.95; }
+/* lista */
+.list{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 18px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
 
-    .login-input:focus {
-      box-shadow: 0 0 20px rgba(143,41,230,0.18);
-      transform: translateY(-2px);
-    }
+.list-item{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+  transition: background .15s;
+}
+.list-item:hover{ background: rgba(106,13,173,0.03); }
 
-    #login-btn {
-      width: 100%;
-      padding: 12px;
-      margin-top: 12px;
-      border-radius: 10px;
-      border: none;
-      background: linear-gradient(90deg,var(--roxo),var(--roxo-escuro));
-      color: white;
-      font-weight: 700;
-      letter-spacing: .6px;
-      font-size: 1rem;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(143,41,230,0.2);
-      transition: transform .12s ease, box-shadow .2s ease;
-    }
-    #login-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(143,41,230,0.28); }
-    #login-btn:active { transform: scale(.99); }
+.list-left{ display:flex; align-items:center; gap:12px; }
+.list-left i{ font-size:1.5rem; color:var(--primary); width:28px; text-align:center; }
+.list-text h2{ font-size:1rem; margin:0; color:var(--primary-dark); }
+.list-text p{ margin:2px 0 0 0; font-size:.88rem; color:var(--text-light); }
 
-    #post-login {
-      margin-top: 14px;
-      display: none;
-      align-items: center;
-      gap: 12px;
-      justify-content: center;
-      flex-direction: column;
-    }
-    .post-spinner {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 6px solid rgba(20,20,20,0.9);
-      border-top: 6px solid var(--roxo);
-      animation: spin 1s linear infinite;
-      box-shadow: 0 6px 30px rgba(143,41,230,0.12);
-    }
-    #post-login p { color: var(--roxo); font-weight: 700; margin-top: 6px; }
+/* bolinha de status */
+.status-dot{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  display:inline-block;
+  position:relative;
+  flex:0 0 14px;
+  cursor:default;
+  outline: none;
+}
 
-    #login-screen, #login-box { -webkit-touch-callout: none; -webkit-user-select: none; -ms-user-select: none; user-select: none; }
+/* tooltip */
+.status-dot::after{
+  content: attr(data-tooltip);
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 10px);
+  transform: translateX(-50%) translateY(6px);
+  white-space:nowrap;
+  padding:6px 8px;
+  border-radius:8px;
+  font-size:.86rem;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  opacity:0;
+  pointer-events:none;
+  transition: transform .12s ease, opacity .12s ease;
+  z-index:20;
+}
+.status-dot::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 4px);
+  transform:translateX(-50%) translateY(6px);
+  border:6px solid transparent;
+  border-top-color: var(--card);
+  opacity:0;
+  transition: transform .12s ease, opacity .12s ease;
+  z-index:20;
+}
+.status-dot:hover::after,
+.status-dot:focus::after,
+.status-dot.tooltip-visible::after{
+  opacity:1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events:auto;
+}
+.status-dot:hover::before,
+.status-dot:focus::before,
+.status-dot.tooltip-visible::before{
+  opacity:1;
+  transform: translateX(-50%) translateY(0);
+}
 
-    header {
-      padding: 30px 20px;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.85);
-      border-bottom: 2px solid var(--roxo);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-      position: relative;
-    }
-    header h1 { font-size: 2.5rem; color: var(--roxo); text-shadow: 0 0 12px var(--roxo); }
-    header p { color: #ccc; font-size: 1rem; margin-top: 8px; }
+/* botão baixar */
+.download-btn{
+  padding:.45rem .8rem;
+  border-radius:8px;
+  background:var(--primary);
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  font-size:.88rem;
+  border:none;
+  transition:all .2s ease;
+}
+.download-btn:hover{ background:var(--primary-dark); transform:scale(1.05); }
 
-    .discord-btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: 2px solid var(--roxo);
-      color: var(--roxo);
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: 0.2s;
-    }
-    .discord-btn:hover { background: transparent; color: var(--roxo); box-shadow: 0 0 15px var(--roxo); }
-    .discord-btn:active { transform: scale(0.95); }
+/* paginação */
+.pagination{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:22px 0 48px 0;
+}
+.pagination button{
+  padding:.6rem 1.1rem;
+  border-radius:10px;
+  background:var(--card);
+  border:1px solid var(--border);
+  cursor:pointer;
+  font-weight:600;
+  color:var(--text);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  transition: all .25s ease;
+}
+.pagination button:hover:not(:disabled){
+  background:var(--primary);
+  color:#fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+.pagination button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+  background:var(--border);
+  color:var(--text-light);
+  box-shadow:none;
+}
 
-    .tabs {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 15px;
-      flex-wrap: wrap;
-    }
-    .tabs button {
-      background: transparent;
-      border: 2px solid var(--roxo);
-      color: var(--roxo);
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .tabs button.active,
-    .tabs button:hover {
-      background: var(--roxo);
-      color: white;
-      box-shadow: 0 0 12px var(--roxo);
-    }
+footer{
+  text-align:center;
+  padding:18px 8px;
+  background:var(--card);
+  border-top:1px solid var(--border);
+  color:var(--text-light);
+  margin-top:28px;
+}
 
-    .container {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 2px solid var(--roxo);
-      border-radius: 15px;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-      transition: 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 12px var(--roxo), 0 0 20px var(--roxo) inset;
-    }
-    .card i { font-size: 2.2rem; color: var(--roxo); margin-bottom: 15px; }
-    .card h2 { font-size: 1.3rem; color: var(--roxo); margin-bottom: 10px; }
-    .card p { font-size: 0.95rem; color: #ccc; margin-bottom: 20px; }
-
-    .download-btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: transparent;
-      color: var(--roxo);
-      font-weight: bold;
-      border: 2px solid var(--roxo);
-      border-radius: 10px;
-      text-decoration: none;
-      transition: 0.2s;
-    }
-    .download-btn:hover { background: transparent; color: var(--roxo); box-shadow: 0 0 15px var(--roxo); }
-    .download-btn:active { transform: scale(0.95); }
-
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: 30px 0;
-    }
-    .pagination button {
-      padding: 10px 18px;
-      border-radius: 8px;
-      border: 2px solid var(--roxo);
-      background: transparent;
-      color: var(--roxo);
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .pagination button:hover { background: transparent; color: var(--roxo); box-shadow: 0 0 12px var(--roxo); }
-    .pagination button:active { transform: scale(0.95); }
-
-    #notify {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(0,0,0,0.7);
-      color: var(--roxo);
-      border: 2px solid var(--roxo);
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-      opacity: 0;
-      transform: translateX(120%);
-      transition: all 0.5s ease;
-      z-index: 9999;
-    }
-    #notify.show { opacity: 1; transform: translateX(0); }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: rgba(0,0,0,0.85);
-      border-top: 2px solid var(--roxo);
-      font-size: 0.9rem;
-      color: var(--cinza);
-      margin-top: 40px;
-    }
-
-    /* small screens */
-    @media (max-width:420px) {
-      #login-box { width: 90%; padding: 20px; border-radius: 12px; }
-    }
+/* responsividade */
+@media (max-width:640px){
+  .list-item{ flex-direction:column; align-items:flex-start; gap:10px; }
+  .list-right{ width:100%; display:flex; justify-content:space-between; align-items:center; }
+}
   </style>
 </head>
-<body>
-  <div id="particles-js"></div>
-
-  <div id="loading">
-    <div class="initial-spinner"></div>
-    <h2>Carregando...</h2>
-  </div>
-
-  <div id="notify">Download iniciado!</div>
-
-  <div id="login-screen" role="dialog" aria-modal="true">
-    <div id="login-box" aria-hidden="false">
-      <div id="login-title">Acessar Site</div>
-      <div id="login-sub">Digite suas credenciais</div>
-      <input type="text" id="username" class="login-input" placeholder="Usuário" readonly aria-readonly="true" tabindex="-1">
-      <input type="password" id="password" class="login-input" placeholder="Senha" readonly aria-readonly="true" tabindex="-1">
-      <button id="login-btn" aria-disabled="false">Entrar</button>
-
-      <div id="post-login">
-        <div class="post-spinner" aria-hidden="true"></div>
-        <p>Entrando...</p>
-      </div>
+<body class="dark">
+  <header>
+    <button id="theme-toggle" aria-label="Alternar tema"><i class="fas fa-sun"></i></button>
+    
+    <div class="logo-title">
+      <img src="https://blob.promisse.app/216240699819950080/11976176671_Icone_1.png" alt="Logo PlayboyCheats" class="logo">
+      <h1>Central de Downloads</h1>
     </div>
-  </div>
-
-  <header aria-hidden="true">
-    <h1>Central de Downloads</h1>
+    
     <p>Escolha abaixo o que deseja baixar</p>
-    <a href="https://discord.gg/playboycheats" target="_blank" class="discord-btn">Discord</a>
+    <a href="https://discord.com/invite/playboycheats" target="_blank" id="discord-btn"><i class="fab fa-discord"></i> Entrar no Discord</a>
   </header>
 
-  <!-- Abas -->
-  <nav class="tabs">
+  <nav class="tabs" aria-label="Categorias">
     <button data-tab="produtos" class="active">Produtos</button>
     <button data-tab="drivers">Drivers</button>
     <button data-tab="emuladores">Emuladores</button>
@@ -344,204 +282,148 @@
     <button data-tab="configs">Configs</button>
   </nav>
 
-  <div class="container" id="product-container"></div>
+  <div class="list" id="product-container" aria-live="polite"></div>
 
   <div class="pagination">
-    <button id="prevBtn">⬅ Anterior</button>
-    <button id="nextBtn">Próxima ➡</button>
+    <button id="prevBtn" aria-label="Página anterior">⬅ Anterior</button>
+    <button id="nextBtn" aria-label="Próxima página">Próxima ➡</button>
   </div>
 
-  <footer aria-hidden="true">
-    © 2025 PlayBoyCheats - Todos os direitos reservados
-  </footer>
+  <footer>© 2025 PlayboyCheats - Todos os direitos reservados</footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 80 },
-        "opacity": { "value": 0.8 },
-        "size": { "value": 2 },
-        "move": { "speed": 3 },
-        "line_linked": { "enable": true, "distance": 155, "color": "#8F29E6", "opacity": 0.5 },
-        "color": { "value": "#8F29E6" }
-      }
-    });
+    const statusColors = { green: '#28a745', orange: '#ffb020', red: '#e55353' };
+    const statusTexts = { green: 'Seguro', orange: 'Atualizando', red: 'Risco' };
 
-    // Categorias
-  const data = {
-    produtos: [
-      { nome: "FreeFire Premium", descricao: "Painel Emulador Premium", link: "https://www.mediafire.com/file/o8bmoibuptpnf34/FreeFire_Premium.rar/file", icone: "fa-fire", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "FreeFire Extreme", descricao: "Painel Emulador Extreme", link: "https://www.mediafire.com/file/5bftmfsjvql70le/FreeFire_Extreme.rar/file", icone: "fa-bolt", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "FreeFire Comum", descricao: "Painel Emulador Comum", link: "https://www.mediafire.com/file/92vn6zzt7ke6g1j/FreeFire_Comum.rar/file", icone: "fa-cube", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "FreeFire Legit", descricao: "Painel Emulador Legit", link: "https://www.mediafire.com/file/rnzk057ul2n3cjh/FreeFire_Legit.rar/file", icone: "fa-check", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "FreeFire Internal V1", descricao: "Painel Emulador Internal", link: "https://www.mediafire.com/file/h72ukmjcv2d17qm/FreeFire+Internal+V1.rar/file", icone: "fa-shield", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "FreeFire Supreme", descricao: "Painel Emulador Supreme", link: "https://www.mediafire.com/file/3jhtchvdezw0kea/FreeFire+Supreme.rar/file", icone: "fa-crown", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "FreeFire Bypass Mobile", descricao: "Painel Emulador Bypass Mobile", link: "https://www.mediafire.com/file/ao97dkorjfgnyta/BypassMobile.rar/file", icone: "fa-mobile", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "Valorant External", descricao: "Painel Valorant External", link: "https://www.mediafire.com/file/hm0gvf3ail2ozom/Playboy-Valorant-Esp.rar/file", icone: "fa-crosshairs", status: { mensagem: "Atualizando", cor: "orange" } },
-      { nome: "Valorant AimColor", descricao: "Painel Valorant AimColor", link: "https://www.mediafire.com/file/hxgsew0zd8u18tw/Playboy-AimColor.rar/file", icone: "fa-eye", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "Spoofer All", descricao: "Spoofer All", link: "https://www.mediafire.com/file/0k87312pz7pdgkb/Playboy-SpooferAll.rar/file", icone: "fa-random", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "Spoofer FiveM", descricao: "Spoofer FiveM", link: "https://www.mediafire.com/file/f468gtywex7r1jz/Playboy+Spoofer.rar/file", icone: "fa-random", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "Otimização", descricao: "Painel Otimização", link: "https://www.mediafire.com/file/sm7jhuavvfpimqc/Optimizer.rar/file", icone: "fa-rocket", status: { mensagem: "Seguro", cor: "green" } }
-    ],
-    drivers: [
-      { nome: "Microsoft DirectX", descricao: "Downloads mais recentes do Pacote Redistribuível do Microsoft DirectX com suporte", link: "https://www.mediafire.com/file/7f8u8438f9a4ni1/Microsoft+DirectX.rar/file", icone: "fa-microchip", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "Microsoft Visual C++", descricao: "Downloads mais recentes do Pacote Redistribuível do Microsoft Visual C++ com suporte", link: "https://www.mediafire.com/file/bb2xtsto4zqwvjy/Microsoft+Visual+C++.rar/file", icone: "fa-hard-drive", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "Desativador do Win Defender", descricao: "dControl é um app usado para desativar o windows defender sem riscos de danificar o PC", link: "https://drive.usercontent.google.com/download?id=1jxmKjN820qP_cLZLgbeBi-aP5DUbROle&export=download", icone: "fa-shield-halved", status: { mensagem: "Senha do WinRar: sordum", cor: "white" } }
-    ],
-    emuladores: [
-      { nome: "Emulador BlueStacks", descricao: "BlueStacks 5.22.51", link: "https://www.mediafire.com/file/ctsfv4bxteaixv2/BlueStacks+5.22.51.rar/file", icone: "fa-desktop", status: { mensagem: "Seguro", cor: "green" } }
-    ],
-    freefires: [
-      { nome: "FreeFire V7A", descricao: "Usar no emulador Normal", link: "https://www.mediafire.com/file/2ntvkbcniv99z3u/Free+Fire+V7A.rar/file", icone: "fa-gamepad", status: { mensagem: "Seguro", cor: "green" } },
-      { nome: "FreeFire MAX", descricao: "Usar no emulador Tela parada", link: "https://www.mediafire.com/file/4p40m6mkzoppuj0/FreeFire+MAX.rar/file", icone: "fa-gamepad", status: { mensagem: "Seguro", cor: "green" } }
-    ],
-    configs: [
-      { nome: "Indisponível", descricao: "Sem descrição", link: "#", icone: "fa-gear", status: { mensagem: "Seguro", cor: "green" } },
-    ]
-  };
+const data = {
+  produtos: [
+    { nome: "FreeFire Premium", descricao: "Painel Emulador Premium", link: "https://www.mediafire.com/file/o8bmoibuptpnf34/FreeFire_Premium.rar/file", icone: "fa-fire", status: "green" },
+    { nome: "FreeFire Extreme", descricao: "Painel Emulador Extreme", link: "https://www.mediafire.com/file/5bftmfsjvql70le/FreeFire_Extreme.rar/file", icone: "fa-bolt", status: "green" },
+    { nome: "FreeFire Comum", descricao: "Painel Emulador Comum", link: "https://www.mediafire.com/file/92vn6zzt7ke6g1j/FreeFire_Comum.rar/file", icone: "fa-cube", status: "green" },
+    { nome: "FreeFire Legit", descricao: "Painel Emulador Legit", link: "https://www.mediafire.com/file/rnzk057ul2n3cjh/FreeFire_Legit.rar/file", icone: "fa-check", status: "green" },
+    { nome: "FreeFire Internal V1", descricao: "Painel Emulador Internal", link: "https://www.mediafire.com/file/h72ukmjcv2d17qm/FreeFire+Internal+V1.rar/file", icone: "fa-shield", status: "green" },
+    { nome: "FreeFire Supreme", descricao: "Painel Emulador Supreme", link: "https://www.mediafire.com/file/3jhtchvdezw0kea/FreeFire+Supreme.rar/file", icone: "fa-crown", status: "green" },
+    { nome: "FreeFire Bypass Mobile", descricao: "Painel Emulador Bypass Mobile", link: "https://www.mediafire.com/file/ao97dkorjfgnyta/BypassMobile.rar/file", icone: "fa-mobile", status: "green" },
+    { nome: "Valorant External", descricao: "Painel Valorant External", link: "https://www.mediafire.com/file/hm0gvf3ail2ozom/Playboy-Valorant-Esp.rar/file", icone: "fa-crosshairs", status: "orange" },
+    { nome: "Valorant AimColor", descricao: "Painel Valorant AimColor", link: "https://www.mediafire.com/file/hxgsew0zd8u18tw/Playboy-AimColor.rar/file", icone: "fa-eye", status: "green" },
+    { nome: "Spoofer All", descricao: "Spoofer All", link: "https://www.mediafire.com/file/0k87312pz7pdgkb/Playboy-SpooferAll.rar/file", icone: "fa-random", status: "green" },
+    { nome: "Spoofer FiveM", descricao: "Spoofer FiveM", link: "https://www.mediafire.com/file/f468gtywex7r1jz/Playboy+Spoofer.rar/file", icone: "fa-random", status: "green" },
+    { nome: "Otimização", descricao: "Painel Otimização", link: "https://www.mediafire.com/file/sm7jhuavvfpimqc/Optimizer.rar/file", icone: "fa-rocket", status: "green" }
+  ],
+  drivers: [
+    { nome: "Microsoft DirectX", descricao: "Downloads mais recentes do Pacote Redistribuível do Microsoft DirectX com suporte", link: "https://www.mediafire.com/file/7f8u8438f9a4ni1/Microsoft+DirectX.rar/file", icone: "fa-microchip", status: "green" },
+    { nome: "Microsoft Visual C++", descricao: "Downloads mais recentes do Pacote Redistribuível do Microsoft Visual C++ com suporte", link: "https://www.mediafire.com/file/bb2xtsto4zqwvjy/Microsoft+Visual+C++.rar/file", icone: "fa-hard-drive", status: "green" },
+    { nome: "Desativador do Win Defender", descricao: "dControl é um app usado para desativar o windows defender sem riscos de danificar o PC", link: "https://drive.usercontent.google.com/download?id=1jxmKjN820qP_cLZLgbeBi-aP5DUbROle&export=download", icone: "fa-shield-halved", status: "green" }
+  ],
+  emuladores: [
+    { nome: "Emulador BlueStacks", descricao: "BlueStacks 5.22.51", link: "https://www.mediafire.com/file/ctsfv4bxteaixv2/BlueStacks+5.22.51.rar/file", icone: "fa-desktop", status: "green" }
+  ],
+  freefires: [
+    { nome: "FreeFire V7A", descricao: "Usar no emulador Normal", link: "https://www.mediafire.com/file/2ntvkbcniv99z3u/Free+Fire+V7A.rar/file", icone: "fa-gamepad", status: "green" },
+    { nome: "FreeFire MAX", descricao: "Usar no emulador Tela parada", link: "https://www.mediafire.com/file/4p40m6mkzoppuj0/FreeFire+MAX.rar/file", icone: "fa-gamepad", status: "green" }
+  ],
+  configs: [
+    { nome: "Indisponível", descricao: "Sem descrição", link: "#", icone: "fa-gear", status: "green" }
+  ]
+};
 
-    // Variáveis globais
+
     let currentTab = "produtos";
     let currentPage = 1;
-    const itemsPerPage = 6;
+    const itemsPerPage = 5;
 
-  function renderPage() {
-    const container = document.getElementById("product-container");
-    container.innerHTML = "";
-    const items = data[currentTab];
-    const totalPages = Math.ceil(items.length / itemsPerPage);
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const pageItems = items.slice(start, end);
+    function renderPage(){
+      const container = document.getElementById('product-container');
+      container.innerHTML = '';
+      const items = data[currentTab] || [];
+      const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
+      const start = (currentPage - 1) * itemsPerPage;
+      const pageItems = items.slice(start, start + itemsPerPage);
 
-    pageItems.forEach(p => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <i class="fas ${p.icone}"></i>
-        <h2>${p.nome}</h2>
-        <p>${p.descricao}</p>
-        <p style="font-weight:bold; color:${p.status.cor};">${p.status.mensagem}</p>
-        <a href="${p.link}" class="download-btn" target="_blank" onclick="showNotify()">Baixar</a>
-      `;
-      container.appendChild(card);
-    });
+      pageItems.forEach(p => {
+        const color = statusColors[p.status] || '#999';
+        const text = statusTexts[p.status] || '';
 
-    // controla botões
-    document.getElementById("prevBtn").disabled = currentPage === 1;
-    document.getElementById("nextBtn").disabled = currentPage === totalPages;
-  }
+        const item = document.createElement('div');
+        item.className = 'list-item';
+        item.innerHTML = `
+          <div class="list-left">
+            <i class="fas ${p.icone}" aria-hidden="true"></i>
+            <div class="list-text">
+              <h2>${escapeHtml(p.nome)}</h2>
+              <p>${escapeHtml(p.descricao)}</p>
+            </div>
+          </div>
+          <div class="list-right" style="display:flex; align-items:center; gap:12px;">
+            <span class="status-dot" tabindex="0" role="img"
+                  aria-label="${escapeHtml(text)}"
+                  data-tooltip="${escapeHtml(text)}"
+                  style="background:${color};"></span>
+            <a class="download-btn" href="${escapeHtml(p.link)}" target="_blank" rel="noopener">Baixar</a>
+          </div>`;
+        container.appendChild(item);
+      });
 
-    // notificacao
-    window.showNotify = function () {
-      const notify = document.getElementById("notify");
-      notify.classList.add("show");
-      setTimeout(() => notify.classList.remove("show"), 3000);
+      document.getElementById('prevBtn').disabled = currentPage === 1;
+      document.getElementById('nextBtn').disabled = currentPage === totalPages;
+      attachTouchHandlersToDots();
     }
 
-    // paginação
-    document.getElementById("nextBtn").addEventListener("click", () => {
-      const items = data[currentTab];
-      const totalPages = Math.ceil(items.length / itemsPerPage);
-      if (currentPage < totalPages) {
-        currentPage++;
-        renderPage();
-      }
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#39;');
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      const items = data[currentTab] || [];
+      const totalPages = Math.max(1, Math.ceil(items.length / itemsPerPage));
+      if (currentPage < totalPages) { currentPage++; renderPage(); }
+    });
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (currentPage > 1) { currentPage--; renderPage(); }
     });
 
-    document.getElementById("prevBtn").addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage--;
-        renderPage();
-      }
-    });
-
-    // troca de abas
-    document.querySelectorAll(".tabs button").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+    document.querySelectorAll('nav.tabs button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
         currentTab = btn.dataset.tab;
         currentPage = 1;
         renderPage();
       });
     });
 
-    // efeito login
-    const usernameEl = document.getElementById("username");
-    const passwordEl = document.getElementById("password");
-    const loginBtn = document.getElementById("login-btn");
-    const postLogin = document.getElementById("post-login");
-    const loginScreen = document.getElementById("login-screen");
+    const toggleBtn = document.getElementById('theme-toggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const icon = toggleBtn.querySelector('i');
+      if (document.body.classList.contains('dark')) icon.classList.replace('fa-moon','fa-sun');
+      else icon.classList.replace('fa-sun','fa-moon');
+    });
 
-    usernameEl.setAttribute("readonly", "true");
-    passwordEl.setAttribute("readonly", "true");
-    usernameEl.setAttribute("tabindex", "-1");
-    passwordEl.setAttribute("tabindex", "-1");
-
-    function typeEffect(el, text, delay, callback) {
-      el.value = "";
-      let i = 0;
-      const timer = setInterval(() => {
-        el.value += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-          clearInterval(timer);
-          if (callback) callback();
+    function attachTouchHandlersToDots(){
+      document.querySelectorAll('.status-dot.tooltip-visible').forEach(d => d.classList.remove('tooltip-visible'));
+      document.querySelectorAll('.status-dot').forEach(dot => {
+        dot.ontouchstart = null;
+        dot.ontouchstart = (e) => {
+          e.preventDefault();
+          const visible = dot.classList.contains('tooltip-visible');
+          document.querySelectorAll('.status-dot.tooltip-visible').forEach(d=>d.classList.remove('tooltip-visible'));
+          if (!visible) dot.classList.add('tooltip-visible');
+        };
+      });
+      document.ontouchstart = (e) => {
+        if (!e.target.closest('.status-dot')) {
+          document.querySelectorAll('.status-dot.tooltip-visible').forEach(d=>d.classList.remove('tooltip-visible'));
         }
-      }, delay);
+      };
     }
 
-    window.addEventListener("load", () => {
-      loginScreen.classList.remove("hidden");
-      document.querySelector('header').setAttribute('aria-hidden','true');
-      document.querySelector('footer').setAttribute('aria-hidden','true');
-
-      setTimeout(() => {
-        typeEffect(usernameEl, "playboycheats", 120, () => {
-          setTimeout(() => {
-            typeEffect(passwordEl, "123", 130, () => {
-              setTimeout(() => {
-                loginBtn.click();
-              }, 600);
-            });
-          }, 250);
-        });
-      }, 800);
-    });
-
-    loginBtn.addEventListener("click", () => {
-      loginBtn.disabled = true;
-      loginBtn.setAttribute('aria-disabled','true');
-      loginBtn.style.opacity = 0;
-      postLogin.style.display = "flex";
-
-      setTimeout(() => {
-        loginScreen.classList.add("hidden");
-        document.querySelector('header').removeAttribute('aria-hidden');
-        document.querySelector('footer').removeAttribute('aria-hidden');
-        document.body.style.overflow = '';
-      }, 2200);
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (!loginScreen.classList.contains('hidden')) {
-        if (e.key === 'Tab' || e.key === 'Escape' || e.key === 'Enter') {
-          e.preventDefault();
-        }
-      }
-    });
-
-    // inicialização
-    window.onload = function () {
-      setTimeout(() => {
-        const load = document.getElementById("loading");
-        if (load) load.style.display = "none";
-        renderPage();
-      }, 700);
-    };
+    renderPage();
   </script>
 </body>
 </html>
-
